@@ -1,0 +1,5 @@
+### Clients 게시글 전체 조회
+GET http://localhost:3000/main
+
+### Balance 게시글 전체 조회
+GET http://localhost:3000/admin
