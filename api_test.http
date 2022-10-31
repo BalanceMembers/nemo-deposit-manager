@@ -10,6 +10,15 @@ Content-Type: application/json
     "accessNo": 13496039
 }
 
+### Clients 수정
+PUT http://localhost:3000/api/clients/15
+Content-Type: application/json
+
+{
+    "client": "TEST",
+    "accessNo": 13496039
+}
+
 
 
 
