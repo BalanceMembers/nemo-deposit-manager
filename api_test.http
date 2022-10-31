@@ -11,14 +11,16 @@ Content-Type: application/json
 }
 
 ### Clients 수정
-PUT http://localhost:3000/api/clients/15
+PUT http://localhost:3000/api/clients/112
 Content-Type: application/json
 
 {
     "client": "TEST",
-    "accessNo": 13496039
+    "accessNo": 13496037
 }
 
+### Clients 삭제
+DELETE http://localhost:3000/api/clients/112
 
 
 

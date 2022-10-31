@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Clients } = require("../models");
 
-// 모든 고객사 리스트 & 정보 보여주기
+// 고객사 조회
 router.get("/", async (req, res) => {
   try {
     const clients = await Clients.findAll({ order: [["clientId", "ASC"]] });
@@ -51,7 +51,27 @@ router.put("/:clientId", async (req, res) => {
   } catch (error) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
     return res.status(400).json({
-      errorMessage: "게시글 수정에 실패하였습니다.",
+      errorMessage: "클라이언트 수정에 실패하였습니다.",
+    });
+  }
+});
+
+// 고객사 삭제
+router.delete("/:clientId", async (req, res) => {
+  try {
+    const { clientId } = req.params;
+    const detailClient = await Clients.findOne({ where: { clientId } });
+
+    if (!detailClient) {
+      return res.status(404).json({ success: false, errorMessage: "해당 클라이언트가 없습니다." });
+    }
+
+    await Clients.destroy({ where: { clientId } });
+    res.status(200).json({ success: true, message: "클라이언트를 삭제하였습니다." });
+  } catch (error) {
+    console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
+    return res.status(400).json({
+      errorMessage: "클라이언트 삭제에 실패하였습니다.",
     });
   }
 });
