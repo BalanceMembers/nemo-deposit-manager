@@ -3,11 +3,20 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("Balances", {
-      no: {
+      balanceId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      clientId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        // references: {
+        //   model: "Clients",
+        //   key: "clientId",
+        // },
+        // onDelete: "cascade",
       },
       date: {
         type: Sequelize.STRING,
@@ -19,9 +28,6 @@ module.exports = {
         type: Sequelize.STRING,
       },
       amount: {
-        type: Sequelize.INTEGER,
-      },
-      clientId: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

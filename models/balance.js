@@ -13,15 +13,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Balances.init(
     {
-      no: {
+      balanceId: {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
+      clientId: DataTypes.INTEGER,
       date: DataTypes.STRING,
       content: DataTypes.STRING,
       in_charge: DataTypes.STRING,
       amount: DataTypes.INTEGER,
-      clientId: DataTypes.INTEGER,
     },
     {
       sequelize,

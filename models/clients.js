@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Clients.init(
     {
-      no: {
+      clientId: {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
