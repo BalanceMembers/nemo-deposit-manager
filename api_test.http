@@ -24,5 +24,29 @@ DELETE http://localhost:3000/api/clients/112
 
 
 
-### Balance 게시글 전체 조회
-GET http://localhost:3000/api/balances
+### Balance 조회
+GET http://localhost:3000/api/balances/1
+
+### Balance 생성
+POST http://localhost:3000/api/balances/1
+Content-Type: application/json
+
+{
+  "date": "2022-01-01",
+  "content": "3월 선결제 금액",
+  "in_charge": "홍길동",
+  "amount": 2648000
+}
+
+### Balance 수정
+PUT http://localhost:3000/api/balances/2
+Content-Type: application/json
+
+{
+  "date": "2022-01-01",
+  "content": "3월 선결제 금액",
+  "in_charge": "홍길동",
+  "amount": 2648000
+}
+
+### Balance 삭제
