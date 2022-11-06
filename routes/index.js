@@ -5,10 +5,11 @@ const usersRouter = require("./users");
 const balanceRouter = require("./balance");
 const clientsRouter = require("./clients");
 
-router.get('/', function(req, res, next) {
-    res.send('API로 연결됩니다.'); });
+router.get("/", function (req, res, next) {
+  res.send("API로 연결됩니다.");
+});
 
-router.use("/admin", balanceRouter);
+router.use("/balances", balanceRouter);
 router.use("/user", usersRouter);
 router.use("/clients", clientsRouter);
 
