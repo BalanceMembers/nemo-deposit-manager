@@ -20,14 +20,15 @@ router.post("/:clientId", async (req, res) => {
     const { clientId } = req.params;
     const { date, content, in_charge, amount } = req.body;
 
+    if (!date || !content || !in_charge || !amount) {
+      res.status(400).json({ success: false, message: "누락된 항목이 있습니다." });
+      return;
+    }
+
     const detailClient = await Clients.findOne({ where: { clientId } });
 
     if (!detailClient) {
-      return res.status(404).json({ success: false, errorMessage: "해당 클라이언트가 없습니다." });
-    }
-
-    if (!date || !content || !in_charge || !amount) {
-      res.status(400).json({ success: false, message: "누락된 항목이 있습니다." });
+      res.status(404).json({ success: false, errorMessage: "해당 클라이언트가 없습니다." });
       return;
     }
 
