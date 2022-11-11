@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
         allowNull: false,
+        autoIncrement: true,
       },
       clientId: DataTypes.INTEGER,
       date: DataTypes.STRING,
