@@ -1,9 +1,10 @@
 const createError = require("http-errors");
 const express = require("express");
+const helmet = require("helmet");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const session = require("express-session");
 const indexRouter = require("./routes/index");
 
 const app = express();
@@ -22,20 +23,38 @@ sequelize
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
+app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "./client/build")));
 
+// set session
+let option = {
+  secret: process.env.SESSION_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    maxAge: 900000, // 15min
+  },
+};
+
+if (app.get("env") === "production") {
+  app.set("trust proxy", 1); // trust first proxy
+  option.cookie.secure = true; // serve secure cookies
+}
+
+app.use(session(option));
+
+// set routers
+app.use(express.static(path.join(__dirname, "./client/build")));
 app.use("/api", indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
-// error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
