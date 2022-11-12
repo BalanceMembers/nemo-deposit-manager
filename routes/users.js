@@ -22,7 +22,7 @@ router.get("/", function (req, res) {
   res.send("로그인 해주세요.");
 });
 
-// log-in features
+// login&out features
 router.post("/login", loginManger.login);
 router.post("/logout", loginManger.logout);
 

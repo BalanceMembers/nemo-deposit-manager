@@ -58,7 +58,7 @@ GET http://localhost:3000/api/user
 
 
 ### Login
-POST http://localhost:3000/api/user/login
+POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 { 
@@ -67,7 +67,7 @@ Content-Type: application/json
 }
 
 ### Admin Login
-POST http://localhost:3000/api/user/login
+POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 { 
@@ -76,5 +76,5 @@ Content-Type: application/json
 }
 
 ### Logout
-POST http://localhost:3000/api/user/logout
+POST http://localhost:3000/api/users/logout
 Content-Type: application/json

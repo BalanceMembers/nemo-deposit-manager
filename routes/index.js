@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const usersRouter = require("./users");
-const balanceRouter = require("./balance");
+const balanceRouter = require("./balances");
 const clientsRouter = require("./clients");
 
 router.get("/", function (req, res, next) {
@@ -10,7 +10,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.use("/balances", balanceRouter);
-router.use("/user", usersRouter);
+router.use("/users", usersRouter);
 router.use("/clients", clientsRouter);
 
 module.exports = router;
