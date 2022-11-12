@@ -1,9 +1,29 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+const LoginManager = require("./LoginManager.js");
+const loginManger = new LoginManager();
+
+// middleware to test if authenticated
+function isAuthenticated(req, res, next) {
+  if (req.session.user) next();
+  else next("route");
+}
+
+// if logged in
+router.get("/", isAuthenticated, function (req, res) {
+  console.log(req.session);
+  res.send("hello, user");
 });
+
+// if not logged in
+router.get("/", function (req, res) {
+  console.log(req.session);
+  res.send("로그인 해주세요.");
+});
+
+// log-in features
+router.post("/login", loginManger.login);
+router.post("/logout", loginManger.logout);
 
 module.exports = router;

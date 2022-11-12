@@ -51,3 +51,30 @@ Content-Type: application/json
 
 ### Balance 삭제
 DELETE http://localhost:3000/api/balances/2
+
+
+### Login 시도
+GET http://localhost:3000/api/user
+
+
+### Login
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{ 
+  "id": "sampleid",
+  "pw": "samplepwd"
+}
+
+### Admin Login
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{ 
+  "id": "nemolab",
+  "pw": "adminpwd"
+}
+
+### Logout
+POST http://localhost:3000/api/user/logout
+Content-Type: application/json
