@@ -1,6 +1,7 @@
-const { Balances, Clients } = require("../models");
-
 import express, { Request, Response, NextFunction } from "express";
+import Clients from "../models/clients";
+import Balances from "../models/balances";
+
 const balancesRouter = express.Router();
 
 // 특정 클라이언트 적립금 내역 보기

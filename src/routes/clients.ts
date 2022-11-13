@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
-const clientsRouter = express.Router();
+import Clients from "../models/clients";
 
-const { Clients } = require("../models");
+const clientsRouter = express.Router();
 
 // 고객사 조회
 clientsRouter.get("/", async (req, res) => {
