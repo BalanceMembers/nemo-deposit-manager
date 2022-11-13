@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const LoginManager = require("./src/LoginManager.js");
+const LoginManager = require("./LoginManager.js");
 const loginManger = new LoginManager();
 
 // middleware to test if authenticated
