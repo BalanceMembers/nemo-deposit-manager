@@ -1,15 +1,16 @@
-const router = express.Router();
+import express from "express";
+const indexRouter = express.Router();
 
-const usersRouter = require("./users");
-const balanceRouter = require("./balances");
-const clientsRouter = require("./clients");
+import usersRouter from "./users";
+import balanceRouter from "./balances";
+import clientsRouter from "./clients";
 
-router.get("/", function (req, res, next) {
+indexRouter.get("/", function (req, res, next) {
   res.send("API로 연결됩니다.");
 });
 
-router.use("/balances", balanceRouter);
-router.use("/users", usersRouter);
-router.use("/clients", clientsRouter);
+indexRouter.use("/balances", balanceRouter);
+indexRouter.use("/users", usersRouter);
+indexRouter.use("/clients", clientsRouter);
 
-module.exports = router;
+export default indexRouter;

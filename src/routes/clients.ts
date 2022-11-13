@@ -1,23 +1,24 @@
+import express, { Request, Response, NextFunction } from "express";
+const clientsRouter = express.Router();
+
 const { Clients } = require("../models");
 
 // 고객사 조회
-router.get("/", async (req, res) => {
+clientsRouter.get("/", async (req, res) => {
   try {
     const data = await Clients.findAll({ order: [["clientId", "ASC"]] });
     res.status(200).json({ success: true, data });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res
-      .status(400)
-      .json({
-        success: false,
-        errorMessage: "클라이언트 조회에 실패하였습니다.",
-      });
+    return res.status(400).json({
+      success: false,
+      errorMessage: "클라이언트 조회에 실패하였습니다.",
+    });
   }
 });
 
 // 고객사 생성
-router.post("/", async (req, res) => {
+clientsRouter.post("/", async (req, res) => {
   try {
     const { client, accessNo } = req.body;
 
@@ -32,19 +33,17 @@ router.post("/", async (req, res) => {
     res
       .status(201)
       .json({ success: true, message: "클라이언트가 생성되었습니다." });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res
-      .status(400)
-      .json({
-        success: false,
-        errorMessage: "클라이언트 생성에 실패하였습니다.",
-      });
+    return res.status(400).json({
+      success: false,
+      errorMessage: "클라이언트 생성에 실패하였습니다.",
+    });
   }
 });
 
 // 고객사 수정
-router.put("/:clientId", async (req, res) => {
+clientsRouter.put("/:clientId", async (req, res) => {
   try {
     const { clientId } = req.params;
     const { client, accessNo } = req.body;
@@ -63,19 +62,17 @@ router.put("/:clientId", async (req, res) => {
     res
       .status(200)
       .json({ success: true, message: "클라이언트를 수정하였습니다." });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res
-      .status(400)
-      .json({
-        success: false,
-        errorMessage: "클라이언트 수정에 실패하였습니다.",
-      });
+    return res.status(400).json({
+      success: false,
+      errorMessage: "클라이언트 수정에 실패하였습니다.",
+    });
   }
 });
 
 // 고객사 삭제
-router.delete("/:clientId", async (req, res) => {
+clientsRouter.delete("/:clientId", async (req, res) => {
   try {
     const { clientId } = req.params;
     const detailClient = await Clients.findOne({ where: { clientId } });
@@ -90,15 +87,13 @@ router.delete("/:clientId", async (req, res) => {
     res
       .status(200)
       .json({ success: true, message: "클라이언트를 삭제하였습니다." });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res
-      .status(400)
-      .json({
-        success: false,
-        errorMessage: "클라이언트 삭제에 실패하였습니다.",
-      });
+    return res.status(400).json({
+      success: false,
+      errorMessage: "클라이언트 삭제에 실패하였습니다.",
+    });
   }
 });
 
-module.exports = router;
+export default clientsRouter;

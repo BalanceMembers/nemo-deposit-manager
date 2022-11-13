@@ -24,8 +24,15 @@
     "sequelize": "^6.25.3"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.14",
+    "@types/express-session": "^1.17.5",
+    "@types/http-errors": "^2.0.1",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^18.11.9",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.20",
-    "sequelize-cli": "^6.5.2"
+    "sequelize-cli": "^6.5.2",
+    "ts-node": "^10.9.1"
   }
 }

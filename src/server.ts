@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import app from "./app";
 import http from "http";
 
+const app = require("./app");
 const debug = require("debug")("balance-nemo:server");
 
 app.set("port", process.env.PORT);

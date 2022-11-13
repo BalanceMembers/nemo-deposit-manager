@@ -1,7 +1,10 @@
-const { Balances } = require("../models");
+const { Balances, Clients } = require("../models");
+
+import express, { Request, Response, NextFunction } from "express";
+const balancesRouter = express.Router();
 
 // 특정 클라이언트 적립금 내역 보기
-router.get("/:clientId", async (req, res) => {
+balancesRouter.get("/:clientId", async (req, res) => {
   try {
     const { clientId } = req.params;
     const data = await Balances.findAll({
@@ -9,7 +12,7 @@ router.get("/:clientId", async (req, res) => {
       order: [["balanceId", "ASC"]],
     });
     res.status(200).json({ success: true, data });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
     return res.status(400).json({
       success: false,
@@ -19,7 +22,7 @@ router.get("/:clientId", async (req, res) => {
 });
 
 // 특정 클라이언트 적립금 내역 추가
-router.post("/:clientId", async (req, res) => {
+balancesRouter.post("/:clientId", async (req, res) => {
   try {
     const { clientId } = req.params;
     const { date, content, in_charge, amount } = req.body;
@@ -43,7 +46,7 @@ router.post("/:clientId", async (req, res) => {
     res
       .status(201)
       .json({ success: true, message: "적립금 내역을 추가하였습니다." });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
     return res.status(400).json({
       success: false,
@@ -53,7 +56,7 @@ router.post("/:clientId", async (req, res) => {
 });
 
 // 특정 ID의 적립금내역 수정
-router.put("/:balanceId", async (req, res) => {
+balancesRouter.put("/:balanceId", async (req, res) => {
   try {
     const { balanceId } = req.params;
     const { date, content, in_charge, amount } = req.body;
@@ -80,7 +83,7 @@ router.put("/:balanceId", async (req, res) => {
     res
       .status(200)
       .json({ success: true, message: "적립금 내역을 수정하였습니다." });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
     return res.status(400).json({
       success: false,
@@ -90,7 +93,7 @@ router.put("/:balanceId", async (req, res) => {
 });
 
 // 특정 ID의 적립금내역 삭제
-router.delete("/:balanceId", async (req, res) => {
+balancesRouter.delete("/:balanceId", async (req, res) => {
   try {
     const { balanceId } = req.params;
 
@@ -106,7 +109,7 @@ router.delete("/:balanceId", async (req, res) => {
     res
       .status(200)
       .json({ success: true, message: "적립금 내역을 삭제하였습니다." });
-  } catch (error) {
+  } catch (error: any) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
     return res.status(400).json({
       success: false,
@@ -115,4 +118,4 @@ router.delete("/:balanceId", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default balancesRouter;

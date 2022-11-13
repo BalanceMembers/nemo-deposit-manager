@@ -1,5 +1,7 @@
+import express, { Request, Response, NextFunction } from "express";
+
 class LoginManager {
-  login = (req, res) => {
+  login = (req: Request, res: Response, next: NextFunction) => {
     if (
       req.body.id === process.env.ADMIN_ID &&
       req.body.pw === process.env.ADMIN_PWD
@@ -29,8 +31,8 @@ class LoginManager {
     }
   };
 
-  logout = (req, res, next) => {
-    req.session.user = null;
+  logout = (req: Request, res: Response, next: NextFunction) => {
+    req.session.destroy;
     req.session.save(function (err) {
       if (err) next(err);
       req.session.regenerate(function (err) {
@@ -42,4 +44,4 @@ class LoginManager {
   };
 }
 
-module.exports = LoginManager;
+export default LoginManager;
