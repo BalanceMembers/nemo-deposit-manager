@@ -9,6 +9,7 @@ class LoginManager {
                     if (err)
                         next(err);
                     req.session.user = { id: req.body.id };
+                    req.session.isLoggedIn = true;
                     req.session.save(function (err) {
                         if (err)
                             return next(err);
@@ -22,6 +23,7 @@ class LoginManager {
                     if (err)
                         next(err);
                     req.session.user = { id: req.body.id };
+                    req.session.isLoggedIn = true;
                     req.session.save(function (err) {
                         if (err)
                             return next(err);
@@ -34,7 +36,8 @@ class LoginManager {
             }
         };
         this.logout = (req, res, next) => {
-            req.session.destroy;
+            req.session.user = null;
+            req.session.isLoggedIn = false;
             req.session.save(function (err) {
                 if (err)
                     next(err);

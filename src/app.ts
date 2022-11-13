@@ -1,10 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
-
+import express from "express";
 import helmet from "helmet";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import session, { SessionOptions } from "express-session";
+import session from "express-session";
 import indexRouter from "./routes/index";
 import Redis from "ioredis";
 
@@ -20,13 +19,14 @@ app.use(cookieParser());
 // set session
 declare module "express-session" {
   export interface SessionData {
-    user: { [key: string]: any | null };
+    user: { id: string } | null;
+    isLoggedIn: boolean;
   }
 }
 
 let redisClient = new Redis();
-let option: any = {
-  secret: process.env.SESSION_KEY,
+let option = {
+  secret: process.env.SESSION_KEY!,
   resave: false,
   saveUninitialized: true,
   store: new RedisStore({ client: redisClient }),
@@ -59,7 +59,7 @@ sequelize
   .then(() => {
     console.log("데이터베이스 연결 성공");
   })
-  .catch((error: any) => {
+  .catch((error: Error) => {
     console.log(`데이터베이스 연결 실패 ${error}`);
   });
 

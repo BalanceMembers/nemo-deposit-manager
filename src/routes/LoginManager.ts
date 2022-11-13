@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 
 class LoginManager {
   login = (req: Request, res: Response, next: NextFunction) => {
@@ -6,9 +6,10 @@ class LoginManager {
       req.body.id === process.env.ADMIN_ID &&
       req.body.pw === process.env.ADMIN_PWD
     ) {
-      req.session.regenerate(function (err) {
+      req.session.regenerate(function (err: Error) {
         if (err) next(err);
         req.session.user = { id: req.body.id };
+        req.session.isLoggedIn = true;
         req.session.save(function (err) {
           if (err) return next(err);
           res.redirect("/admin");
@@ -18,9 +19,10 @@ class LoginManager {
       req.body.id === process.env.TEMP_ID &&
       req.body.pw === process.env.TEMP_PWD
     ) {
-      req.session.regenerate(function (err) {
+      req.session.regenerate(function (err: Error) {
         if (err) next(err);
         req.session.user = { id: req.body.id };
+        req.session.isLoggedIn = true;
         req.session.save(function (err) {
           if (err) return next(err);
           res.redirect("/home");
@@ -32,8 +34,9 @@ class LoginManager {
   };
 
   logout = (req: Request, res: Response, next: NextFunction) => {
-    req.session.destroy;
-    req.session.save(function (err) {
+    req.session.user = null;
+    req.session.isLoggedIn = false;
+    req.session.save(function (err: Error) {
       if (err) next(err);
       req.session.regenerate(function (err) {
         if (err) next(err);
