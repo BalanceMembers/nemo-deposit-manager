@@ -1,17 +1,16 @@
 import express, { Request, Response, NextFunction } from "express";
-const app = express();
 
-import createError from "http-errors";
 import helmet from "helmet";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import session, { SessionOptions } from "express-session";
 import indexRouter from "./routes/index";
+import Redis from "ioredis";
 
-const Redis = require("ioredis");
 const RedisStore = require("connect-redis")(session);
 
+const app = express();
 app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
@@ -52,22 +51,6 @@ app.use("/api", indexRouter);
 // set view engine and  error handlers
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-app.use(function (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
 
 // sequelize 연결
 const { sequelize } = require("./models/index");

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=\"production\" node ./dist/server.js",
     "dev": "cross-env NODE_ENV=\"development\" nodemon ./src/server.ts",
-    "build": "tsc -pw ."
+    "ts": "ts-node ./src/server.ts",
+    "build": "tsc -p ."
   },
   "dependencies": {
     "concurrently": "^7.5.0",
