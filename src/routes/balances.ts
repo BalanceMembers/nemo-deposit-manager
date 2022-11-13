@@ -1,6 +1,4 @@
-const express = require("express");
-const router = express.Router();
-const { Balances, Clients } = require("../models");
+const { Balances } = require("../models");
 
 // 특정 클라이언트 적립금 내역 보기
 router.get("/:clientId", async (req, res) => {

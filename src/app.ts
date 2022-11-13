@@ -39,7 +39,7 @@ if (app.get("env") === "production") {
 app.use(session(option));
 
 // set routers
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 app.use("/api", indexRouter);
 
 // set view engine and  error handlers
