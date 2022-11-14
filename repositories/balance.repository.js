@@ -26,11 +26,8 @@ class BalanceRepository {
   };
 
   // balanceId에 해당하는 적립금 내역 수정
-  updateBalance = async (balanceId) => {
-    const updateBalance = await Balance.update(
-      { date: date, content: content, in_charge: in_charge, amount: amount },
-      { where: { balanceId } }
-    );
+  updateBalance = async (balanceId, date, content, in_charge, amount) => {
+    const updateBalance = await Balance.update({ date, content, in_charge, amount }, { where: { balanceId } });
     return updateBalance;
   };
 
@@ -40,3 +37,5 @@ class BalanceRepository {
     return deleteBalance;
   };
 }
+
+module.exports = BalanceRepository;
