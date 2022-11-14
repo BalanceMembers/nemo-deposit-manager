@@ -1,16 +1,3 @@
-// const express = require("express");
-// const router = express.Router();
-
-// const BalanceService = require("../services/balance.service");
-// const balanceService = new BalanceService();
-
-// router.get("/:clientId", balanceService);
-// router.post("/:clientId", balanceService);
-// router.put("/:balanceId", balanceService);
-// router.delete("/:balanceId", balanceService);
-
-// module.exports = router;
-
 const express = require("express");
 const router = express.Router();
 const { Balances, Clients } = require("../models");
