@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const usersRouter = require("./users");
-const balanceRouter = require("./balance");
+const balanceRouter = require("./balance.routes");
 const clientsRouter = require("./clients");
 
 router.get("/", function (req, res, next) {

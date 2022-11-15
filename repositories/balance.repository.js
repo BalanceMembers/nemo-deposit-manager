@@ -1,4 +1,4 @@
-const Balance = require("../models/balance");
+const { Balance } = require("../models/balance");
 
 class BalanceRepository {
   // clientId에 해당하는 클라이언트의 모든 적립금 내역을 불러옴
