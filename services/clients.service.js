@@ -1,71 +1,80 @@
-const express = require("express");
-const router = express.Router();
-const { Clients } = require("../models");
+const ClientsRepository = require("../repositories/clients.repository");
 
-// 고객사 조회
-router.get("/", async (req, res) => {
-  try {
-    const data = await Clients.findAll({ order: [["clientId", "ASC"]] });
-    res.status(200).json({ success: true, data });
-  } catch (error) {
-    console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res.status(400).json({ success: false, errorMessage: "클라이언트 조회에 실패하였습니다." });
-  }
-});
+class ClientsService {
+  clientsRepository = new ClientsRepository();
 
-// 고객사 생성
-router.post("/", async (req, res) => {
-  try {
-    const { client, accessNo } = req.body;
-
-    if (!client || !accessNo) {
-      res.status(400).json({ success: false, message: "누락된 항목이 있습니다." });
-      return;
+  // 고객사 전체 조회
+  getAllClients = async (req, res) => {
+    try {
+      const data = await this.clientsRepository.getAllClients();
+      res.status(200).json({ success: true, data });
+    } catch (error) {
+      console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
+      return res.status(400).json({ success: false, errorMessage: "클라이언트 구좌 조회에 실패하였습니다." });
     }
+  };
 
-    await Clients.create({ client, accessNo });
-    res.status(201).json({ success: true, message: "클라이언트가 생성되었습니다." });
-  } catch (error) {
-    console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res.status(400).json({ success: false, errorMessage: "클라이언트 생성에 실패하였습니다." });
-  }
-});
+  // 고객사 생성
+  createClient = async (req, res) => {
+    try {
+      const { client, accessNo } = req.body;
 
-// 고객사 수정
-router.put("/:clientId", async (req, res) => {
-  try {
-    const { clientId } = req.params;
-    const { client, accessNo } = req.body;
-    const detailClient = await Clients.findOne({ where: { clientId } });
+      if (!client || !accessNo) {
+        res.status(400).json({ success: false, message: "누락된 항목이 있습니다." });
+        return;
+      }
 
-    if (!detailClient) {
-      return res.status(404).json({ success: false, errorMessage: "해당 클라이언트가 없습니다." });
+      const data = await this.clientsRepository.createClient(client, accessNo);
+      res.status(201).json({ success: true, message: "클라이언트 구좌 생성이 완료되었습니다.", data });
+    } catch (error) {
+      console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
+      return res.status(400).json({ success: false, errorMessage: "클라이언트 구좌 생성에 실패하였습니다." });
     }
+  };
 
-    await Clients.update({ client: client, accessNo: accessNo }, { where: { clientId } });
-    res.status(200).json({ success: true, message: "클라이언트를 수정하였습니다." });
-  } catch (error) {
-    console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res.status(400).json({ success: false, errorMessage: "클라이언트 수정에 실패하였습니다." });
-  }
-});
+  // 고객사 수정
+  updateClient = async (req, res) => {
+    try {
+      const { clientId } = req.params;
+      const { client, accessNo } = req.body;
 
-// 고객사 삭제
-router.delete("/:clientId", async (req, res) => {
-  try {
-    const { clientId } = req.params;
-    const detailClient = await Clients.findOne({ where: { clientId } });
+      const clientToUpdate = await this.clientsRepository.getClientDetail(clientId);
 
-    if (!detailClient) {
-      return res.status(404).json({ success: false, errorMessage: "해당 클라이언트가 없습니다." });
+      if (!clientToUpdate) {
+        return res.status(404).json({ success: false, errorMessage: "해당 클라이언트 구좌가 없습니다." });
+      }
+
+      if (!client || !accessNo) {
+        res.status(400).json({ success: false, message: "누락된 항목이 있습니다." });
+        return;
+      }
+
+      await this.clientsRepository.updateClient(clientId, client, accessNo);
+      res.status(200).json({ success: true, message: "클라이언트 구좌 수정이 완료되었습니다." });
+    } catch (error) {
+      console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
+      return res.status(400).json({ success: false, errorMessage: "클라이언트 구좌 수정에 실패하였습니다." });
     }
+  };
 
-    await Clients.destroy({ where: { clientId } });
-    res.status(200).json({ success: true, message: "클라이언트를 삭제하였습니다." });
-  } catch (error) {
-    console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-    return res.status(400).json({ success: false, errorMessage: "클라이언트 삭제에 실패하였습니다." });
-  }
-});
+  // 고객사 삭제
+  deleteClient = async (req, res) => {
+    try {
+      const { clientId } = req.params;
 
-module.exports = router;
+      const clientToDelete = await this.clientsRepository.getClientDetail(clientId);
+
+      if (!clientToDelete) {
+        return res.status(404).json({ success: false, errorMessage: "해당 클라이언트 구좌가 없습니다." });
+      }
+
+      await this.clientsRepository.deleteClient(clientId);
+      res.status(200).json({ success: true, message: "클라이언트 구좌 삭제가 완료되었습니다." });
+    } catch (error) {
+      console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
+      return res.status(400).json({ success: false, errorMessage: "클라이언트 구좌 삭제에 실패하였습니다." });
+    }
+  };
+}
+
+module.exports = ClientsService;

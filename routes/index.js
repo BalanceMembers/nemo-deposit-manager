@@ -3,7 +3,7 @@ const router = express.Router();
 
 const usersRouter = require("./users");
 const balanceRouter = require("./balance.routes");
-const clientsRouter = require("./clients");
+const clientsRouter = require("./clients.routes");
 
 router.get("/", function (req, res, next) {
   res.send("API로 연결됩니다.");

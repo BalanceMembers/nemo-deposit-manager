@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### Clients 수정
-PUT http://localhost:3000/api/clients/112
+PUT http://localhost:3000/api/clients/113
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### Clients 삭제
-DELETE http://localhost:3000/api/clients/112
+DELETE http://localhost:3000/api/clients/113
 
 
 
@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ### Balance 수정
-PUT http://localhost:3000/api/balances/456
+PUT http://localhost:3000/api/balances/457
 Content-Type: application/json
 
 {
@@ -50,4 +50,4 @@ Content-Type: application/json
 }
 
 ### Balance 삭제
-DELETE http://localhost:3000/api/balances/456
+DELETE http://localhost:3000/api/balances/457
