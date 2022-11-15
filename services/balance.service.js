@@ -26,8 +26,8 @@ class BalanceService {
         return;
       }
 
-      await this.balanceRepository.addBalance(date, content, in_charge, amount);
-      res.status(201).json({ success: true, message: "적립금 내역을 추가하였습니다." });
+      const data = await this.balanceRepository.addBalance(clientId, date, content, in_charge, amount);
+      res.status(201).json({ success: true, message: "적립금 내역을 추가하였습니다.", data });
     } catch (error) {
       console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
       res.status(400).json({ success: false, errorMessage: "적립금 내역 추가에 실패하였습니다." });

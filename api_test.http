@@ -39,15 +39,15 @@ Content-Type: application/json
 }
 
 ### Balance 수정
-PUT http://localhost:3000/api/balances/2
+PUT http://localhost:3000/api/balances/456
 Content-Type: application/json
 
 {
   "date": "2022-01-01",
   "content": "3월 선결제 금액",
   "in_charge": "홍길동",
-  "amount": 2648000
+  "amount": 2678000
 }
 
 ### Balance 삭제
-DELETE http://localhost:3000/api/balances/2
+DELETE http://localhost:3000/api/balances/456
