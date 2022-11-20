@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const usersRouter = require("./users");
-const balanceRouter = require("./balance.routes");
-const clientsRouter = require("./clients.routes");
+const balanceRouter = require("./balance");
+const clientsRouter = require("./clients");
 
 router.get("/", function (req, res, next) {
   res.send("API로 연결됩니다.");
