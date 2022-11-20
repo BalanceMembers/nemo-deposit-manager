@@ -10,13 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       clientId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        // references: {
-        //   model: "Clients",
-        //   key: "clientId",
-        // },
-        // onDelete: "cascade",
       },
       date: {
         type: Sequelize.STRING,
@@ -24,7 +18,7 @@ module.exports = {
       content: {
         type: Sequelize.STRING,
       },
-      in_charge: {
+      whoInCharge: {
         type: Sequelize.STRING,
       },
       amount: {
