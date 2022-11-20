@@ -5,10 +5,10 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
-const indexRouter = require("./routes/index");
+const indexRouter = require("./src/routes/index");
 
-const Redis = require("ioredis")
-const RedisStore = require("connect-redis")(session)
+const Redis = require("ioredis");
+const RedisStore = require("connect-redis")(session);
 
 const app = express();
 app.use(helmet());
@@ -19,12 +19,12 @@ app.use(cookieParser());
 
 // set session
 
-let redisClient = new Redis()
+let redisClient = new Redis();
 let option = {
   secret: process.env.SESSION_KEY,
   resave: false,
   saveUninitialized: true,
-  store : new RedisStore({client : redisClient}),
+  store: new RedisStore({ client: redisClient }),
   cookie: {
     httpOnly: true,
     maxAge: 900000, // 15min
@@ -58,7 +58,7 @@ app.use(function (err, req, res, next) {
 });
 
 // sequelize 연결
-const { sequelize } = require("./models/index");
+const { sequelize } = require("./src/models/index");
 sequelize
   .sync({ force: false })
   .then(() => {

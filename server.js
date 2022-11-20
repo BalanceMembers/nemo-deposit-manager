@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const app = require("../app");
+const app = require("./app");
 const debug = require("debug")("balance-nemo:server");
 const http = require("http");
 app.set("port", process.env.PORT);
