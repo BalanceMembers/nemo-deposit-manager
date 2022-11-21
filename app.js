@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
 const indexRouter = require("./src/routes/index");
+const cors = require("cors");
 
 const Redis = require("ioredis");
 const RedisStore = require("connect-redis")(session);
@@ -14,6 +15,13 @@ const app = express();
 app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://3.37.88.13/"],
+    credentials: true,
+  })
+);
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
